@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+    <title>Chatbot For SKKU</title>
+    <style>
+        .wrapper {
+            display:flex;
+            width: 100%;
+            justify-content: center;
+        }
+        .container {
+            width : 45%;
+            min-width : 300px;
+            background-color: #FFF6E8;
+            position: relative;
+            padding: 0 1rem 1rem 1rem;
+            box-shadow: 0px 5px 40px 10px rgba(0,0,0,0.05);
+        }
+        .CodeMirror {
+            height : 50vh;
+        }
+        #question_id_select {
+            width : 100%;
+            outline: none;
+            border: none;
+            padding: .5rem;
+            font-size: 1rem;
+            color: #92459C;
+            background-color: #FFC426;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div style="text-align: center; font-size: 1.3rem; margin: 1.5rem 0 1rem 0;">어떻게 접근해야 할까?</div>
+            <div style="text-align: center; font-size: 1.1rem; margin-bottom: 1.5rem;">아래에 전체 코드를 복사 후 붙여넣어 주세요!</div>
+            <form method="POST" action="/request_answer">
+                <button style="position: absolute; top:2rem; right:1rem; background:none; border:none;" type="submit" ><img style="width: 2.5rem;" src="https://user-images.githubusercontent.com/48249505/122800836-5f759680-d2fe-11eb-8dea-6f5d2cdc9e85.png"/></button>
+                <select id="question_id_select" name="question_id_select">
+                    <option value="02">Quiz 02</option>
+                    <option value="03">Quiz 03</option>
+                    <option value="04">Quiz 04</option>
+                    <option value="05">Quiz 05</option>
+                    <option value="06">Quiz 06</option>
+                    <option value="07">Quiz 07</option>
+                    <option value="08">Quiz 08</option>
+                    <option value="09">Quiz 09</option>
+                    <option value="10">Quiz 10</option>
+                    <option value="11">Quiz 11</option>
+                </select>
+                <textarea id="code_input_textarea" name="code_input_textarea"></textarea>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script>
+        var textarea = document.getElementById('code_input_textarea');
+        var editor = CodeMirror.fromTextArea(textarea, {
+            lineNumbers: true,
+            lineWrapping: true,
+            theme: "eclipse",
+            mode: "python",
+            val: textarea.value
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+    <title>Chatbot For SKKU</title>
+    <style>
+        .wrapper {
+            display:flex;
+            width: 100%;
+            justify-content: center;
+        }
+        .container {
+            width : 45%;
+            min-width : 300px;
+            background-color: #FFF6E8;
+            position: relative;
+            padding: 0 1rem 1rem 1rem;
+            box-shadow: 0px 5px 40px 10px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div style="text-align: center; font-size: 1.3rem; margin: 1.5rem 0 1rem 0;">조금만 더 힘내요!</div>
+            <div style="text-align: center; font-size: 1.1rem; margin-bottom: 1.5rem;">정답에 도움이 될 슈도코드를 보여드릴게요!</div>
+            <img style="width:100%" src="{{ url_for('static', filename='result_2.png') }}">
+            <div style="padding: .5rem; font-size: 1rem; color: #92459C; background-color: #FFC426; font-weight: 900;">
+                {{question_info}}
+            </div>
+            <pre><code class="language-plaintext">{{pseudocode}}</code></pre>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

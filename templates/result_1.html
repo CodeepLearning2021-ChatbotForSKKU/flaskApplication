@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot For SKKU</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://flowchart.js.org/flowchart-latest.js"></script>
+    <style>
+        .wrapper {
+            display:flex;
+            width: 100%;
+            justify-content: center;
+        }
+        .container {
+            width : 45%;
+            min-width : 300px;
+            background-color: #FFF6E8;
+            position: relative;
+            padding: 0 1rem 1rem 1rem;
+            box-shadow: 0px 5px 40px 10px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div style="text-align: center; font-size: 1.3rem; margin: 1.5rem 0 1rem 0;">우리가 도와줄게요!</div>
+            <div style="text-align: center; font-size: 1.1rem; margin-bottom: 1.5rem;">플로우 차트를 보며 감을 잡아볼까요?</div>
+            <img style="width:100%" src="{{ url_for('static', filename='result_1.png') }}">
+            <div style="padding: .5rem; font-size: 1rem; color: #92459C; background-color: #FFC426; font-weight: 900;">
+                {{question_info}}
+            </div>
+            <div>
+                <textarea id="code" style="width: 100%;" rows="11" align="center">
+                    {{ flowchart_code }}
+                </textarea>
+            </div>
+            <div id="canvas" style="width:100%;"></div>
+        </div>
+    </div>
+    <script>
+        var cd = document.getElementById("code");
+        cd.style.display="none"
+        var code = cd.value;
+        var chart = flowchart.parse(code);
+        chart.drawSVG('canvas');
+    </script>
+</body>
+</html>

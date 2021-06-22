@@ -1,0 +1,75 @@
+{
+    "codes": [
+        {
+            "question_id": 1,
+            "level": 3,
+            "codes": [
+                "cycle = 0\nn = int(input())\nn1 = n\nn2 = 0\n\nwhile True:\n    n2 =  (n1 % 10) * 10 + ((n1 // 10 + n1 % 10) % 10)\n    cycle += 1\n    n1 = n2\n    if n == n2:\n        break\nprint(cycle)",
+                ""
+            ]
+        },
+        {
+            "question_id": 2,
+            "codes": [
+                "def solution(answers):\n    pattern1 = [1,2,3,4,5]\n    pattern2 = [2,1,2,3,2,4,2,5]\n    pattern3 = [3,3,1,1,2,2,4,4,5,5]\n    score = [0, 0, 0]\n    result = []\n\n    for idx, answer in enumerate(answers):\n        if answer == pattern1[idx%len(pattern1)]:\n            score[0] += 1\n        if answer == pattern2[idx%len(pattern2)]:\n            score[1] += 1\n        if answer == pattern3[idx%len(pattern3)]:\n            score[2] += 1\n\n    for idx, s in enumerate(score):\n        if s == max(score):\n            result.append(idx+1)\n\n    return result\n",
+                "def solution(answers):\n    p = [[1, 2, 3, 4, 5],\n         [2, 1, 2, 3, 2, 4, 2, 5],\n         [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]]\n    s = [0] * len(p)\n\n    for q, a in enumerate(answers):\n        for i, v in enumerate(p):\n            if a == v[q % len(v)]:\n                s[i] += 1\n    return [i + 1 for i, v in enumerate(s) if v == max(s)]"
+            ]
+        },
+        {
+            "question_id": 3,
+            "codes": [
+                "import math\ndef check_prime(n):\n    if n < 2:\n        return False\n\n    if n == 2:\n        return True\n\n    for i in range(2, int(math.sqrt(n)) + 1):\n        if (n % i) == 0:\n            return False\n\n    return True\n\nnumber_set = set()\ndef permutation(base, array):\n    if base:\n        number_set.add(int(base))\n\n    for i, s in enumerate(array):\n        permutation(base + s, array[:i] + array[i+1:])\n\ndef solution(numbers):\n    answer = 0\n\n    permutation(\"\", list(numbers))\n\n    answer = len(list(filter(check_prime, number_set)))\n\n    return answer",
+                "primeSet = set()\n\n\ndef isPrime(number):\n    if number in (0, 1):\n        return False\n    for i in range(2, number):\n        if number % i == 0:\n            return False\n\n    return True\n\n\ndef makeCombinations(str1, str2):\n    if str1 != \"\":\n        if isPrime(int(str1)):\n            primeSet.add(int(str1))\n\n    for i in range(len(str2)):\n        makeCombinations(str1 + str2[i], str2[:i] + str2[i + 1:])\n\n\ndef solution(numbers):\n    makeCombinations(\"\", numbers)\n\n    answer = len(primeSet)\n\n    return answer\n"
+            ]
+        },
+        {
+            "question_id": 4,
+            "codes": [
+                "def solution(a):\n    x1, y1, z1 = a[0], a[1], a[0]+a[2]\n    x2, y2, z2 = 0, a[1], a[2]\n    for i in a[3:]:\n        x1, y1, z1 = y1, z1, max(x1, y1)+i\n        x2, y2, z2 = y2, z2, max(x2, y2)+i\n    return max(x1, y1, y2, z2)",
+                "def solution(money):\n    answer = 0\n\n    dp1 = [] # \uccab \uc9d1\uc744 \ud138\uc5c8\uc744 \ub54c\n    dp2 = [] # \uccab \uc9d1\uc744 \uc548 \ud138\uace0 \ub450 \ubc88\uc9f8 \uc9d1\uc744 \ud138\uc5c8\uc744 \ub54c\n    dp3 = [] # \uccab \uc9d1\uacfc \ub450 \ubc88\uc9f8 \uc9d1\uc744 \uc548 \ud138\uc5c8\uc744 \ub54c\n    for i in money:\n        dp1.append(0)\n        dp2.append(0)\n        dp3.append(0)\n    dp1[0] = money[0]\n    dp1[1] = dp1[0]\n    dp2[1] = money[1]\n\n    for i in range(2, len(money) - 1):\n        dp1[i] = max(dp1[i - 1], dp1[i - 2] + money[i])\n        dp2[i] = max(dp2[i - 1], dp2[i - 2] + money[i])\n        dp3[i] = max(dp3[i - 1], dp3[i - 2] + money[i])\n    e = len(money) - 1\n    dp1[e] = dp1[e - 1]\n    dp2[e] = max(dp2[e - 1], dp2[e - 2] + money[e])\n    dp3[e] = max(dp3[e - 1], dp3[e - 2] + money[e])\n    answer = max(dp1[e], dp2[e], dp3[e])\n\n    return answer"
+            ]
+        },
+        {
+            "question_id": 5,
+            "codes": [
+                "def solution(array, commands):\n    return list(map(lambda x:sorted(array[x[0]-1:x[1]])[x[2]-1], commands))",
+                "def solution(array, commands):\n    answer = []\n    for command in commands:\n        i,j,k = command\n        answer.append(list(sorted(array[i-1:j]))[k-1])\n    return answer"
+            ]
+        },
+        {
+            "question_id": 6,
+            "codes": [
+                "def solution(brown, red):\n    for i in range(1, int(red**(1/2))+1):\n        if red % i == 0:\n            if 2*(i + red//i) == brown-4:\n                return [red//i+2, i+2]",
+                "def solution(brown, red):\n    nm = brown + red\n    for n in range(1, nm+1):\n        if nm%n != 0:\n            continue\n        m = nm//n\n        if (n-2)*(m-2) == red:\n            return sorted([n, m], reverse = True)"
+            ]
+        },
+        {
+            "question_id": 7,
+            "codes": [
+                "def solution(n, lost, reserve):\n    _reserve = [r for r in reserve if r not in lost]\n    _lost = [l for l in lost if l not in reserve]\n    for r in _reserve:\n        f = r - 1\n        b = r + 1\n        if f in _lost:\n            _lost.remove(f)\n        elif b in _lost:\n            _lost.remove(b)\n    return n - len(_lost)",
+                "def solution(n, lost, reserve):\n    answer = 0\n    for i in range(1, n+1):\n        if i not in lost: #\uc548 \uc783\uc5b4\ubc84\ub9b0 \ud559\uc0dd\n            answer += 1\n        else:\n            if i in reserve: #\uc783\uc5b4\ubc84\ub838\uc9c0\ub9cc \uc5ec\ubd84\ub3c4 \uc788\ub294 \ud559\uc0dd\n                answer += 1\n                reserve.remove(i)\n                lost.remove(i)\n\n    for i in lost: #\uc783\uc5b4\ubc84\ub9ac\uace0 \uc5ec\ubd84\ub3c4 \uc5c6\uc5b4\uc11c \ube4c\ub824\uc57c \ud558\ub294 \ud559\uc0dd\n        if i-1 in reserve:\n            answer += 1\n            reserve.remove(i-1)\n\n        elif i+1 in reserve:\n            answer +=1\n            reserve.remove(i+1)\n\n    return answer"
+            ]
+        },
+        {
+            "question_id": 8,
+            "codes": [
+                "def solution(numbers, hand):\n    answer = ''\n    key_dict = {1:(0,0),2:(0,1),3:(0,2),\n                4:(1,0),5:(1,1),6:(1,2),\n                7:(2,0),8:(2,1),9:(2,2),\n                '*':(3,0),0:(3,1),'#':(3,2)}\n\n    left = [1,4,7]\n    right = [3,6,9]\n    lhand = '*'\n    rhand = '#'\n    for i in numbers:\n        if i in left:\n            answer += 'L'\n            lhand = i\n        elif i in right:\n            answer += 'R'\n            rhand = i\n        else:\n            curPos = key_dict[i]\n            lPos = key_dict[lhand]\n            rPos = key_dict[rhand]\n            ldist = abs(curPos[0]-lPos[0]) + abs(curPos[1]-lPos[1])\n            rdist = abs(curPos[0]-rPos[0]) + abs(curPos[1]-rPos[1])\n\n            if ldist < rdist:\n                answer += 'L'\n                lhand = i\n            elif ldist > rdist:\n                answer += 'R'\n                rhand = i\n            else:\n                if hand == 'left':\n                    answer += 'L'\n                    lhand = i\n                else:\n                    answer += 'R'\n                    rhand = i\n\n    return answer",
+                "def solution(numbers, hand):\n    l = 10\n    r = 11\n    answer = \"\"\n    p = [[0, 4, 3, 4, 3, 2, 3, 2, 1, 2],\n         [4, 0, 1, 2, 0, 2, 3, 0, 3, 4],\n         [3, 1, 0, 1, 2, 1, 2, 3, 2, 3],\n         [4, 2, 1, 0, 3, 2, 1, 4, 3, 2],\n         [3, 0, 2, 3, 0, 1, 2, 0, 2, 3],\n         [2, 2, 1, 2, 1, 0, 1, 2, 1, 2],\n         [3, 3, 2, 1, 2, 1, 0, 3, 2, 1],\n         [2, 0, 3, 4, 0, 2, 3, 0, 1, 2],\n         [1, 3, 2, 3, 2, 1, 2, 1, 0, 1],\n         [2, 4, 3, 2, 3, 2, 1, 2, 1, 0],\n         [1, 0, 4, 5, 0, 3, 4, 0, 2, 3],\n         [1, 5, 4, 0, 4, 3, 0, 3, 2, 0]]\n    for i in numbers:\n        if i in [1, 4, 7]:\n            l = i\n            answer += \"L\"\n        elif i in [3, 6, 9]:\n            r = i\n            answer += \"R\"\n        else:\n            if p[l][i] < p[r][i]:\n                l = i\n                answer += \"L\"\n            elif p[l][i] > p[r][i]:\n                r = i\n                answer += \"R\"\n            elif hand == \"left\":\n                l = i\n                answer += \"L\"\n            else:\n                r = i\n                answer += \"R\"\n    return answer"
+            ]
+        },
+        {
+            "question_id": 9,
+            "codes": [
+                "def solution(board, moves):\n    stacklist = []\n    answer = 0\n\n    for i in moves:\n        for j in range(len(board)):\n            if board[j][i-1] != 0:\n                stacklist.append(board[j][i-1])\n                board[j][i-1] = 0\n\n                if len(stacklist) > 1:\n                    if stacklist[-1] == stacklist[-2]:\n                        stacklist.pop(-1)\n                        stacklist.pop(-1)\n                        answer += 2     \n                break\n\n    return answer",
+                "def solution(board, moves):\n    cols = list(map(lambda x: list(filter(lambda y: y > 0, x)), zip(*board)))\n    a, s = 0, [0]\n\n    for m in moves:\n        if len(cols[m - 1]) > 0:\n            if (d := cols[m - 1].pop(0)) == (l := s.pop()):\n                a += 2\n            else:\n                s.extend([l, d])\n\n    return a"
+            ]
+        },
+        {
+            "question_id": 10,
+            "codes": [
+                "import re\n\ndef solution(new_id):\n    st = new_id\n    st = st.lower()\n    st = re.sub('[^a-z0-9\\-_.]', '', st)\n    st = re.sub('\\.+', '.', st)\n    st = re.sub('^[.]|[.]$', '', st)\n    st = 'a' if len(st) == 0 else st[:15]\n    st = re.sub('^[.]|[.]$', '', st)\n    st = st if len(st) > 2 else st + \"\".join([st[-1] for i in range(3-len(st))])\n    return st",
+                "def solution(new_id):\n    answer = ''\n    # 1\n    new_id = new_id.lower()\n    # 2\n    for c in new_id:\n        if c.isalpha() or c.isdigit() or c in ['-', '_', '.']:\n            answer += c\n    # 3\n    while '..' in answer:\n        answer = answer.replace('..', '.')\n    # 4\n    if answer[0] == '.':\n        answer = answer[1:] if len(answer) > 1 else '.'\n    if answer[-1] == '.':\n        answer = answer[:-1]\n    # 5\n    if answer == '':\n        answer = 'a'\n    # 6\n    if len(answer) > 15:\n        answer = answer[:15]\n        if answer[-1] == '.':\n            answer = answer[:-1]\n    # 7\n    while len(answer) < 3:\n        answer += answer[-1]\n    return answer"
+            ]
+        }
+    ]
+}
